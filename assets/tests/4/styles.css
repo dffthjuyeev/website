@@ -17,7 +17,7 @@ body {
 
 .container-first {
     position: absolute;
-    top: 30%;
+    top: 40%;
     left: 5%;
 }
 
@@ -30,6 +30,7 @@ h1 {
 h1 span {
     position: relative;
 }
+
 .container-btns {
     position: relative;
     top: 50px;
@@ -113,7 +114,45 @@ h1 span {
 }
 
 @media only screen and (max-width: 1000px) {
+    h1 {
+        margin-bottom: 1px;
+    }
+    h1 span {
+        top: -20px;
+        font-size: 50px;
+    }
     .logo {
-        margin-bottom: 10px;
+        margin: 2px;
+    }
+    .medias {
+        top: 50%;
+    }
+    .container-first {
+        top: 10%;
+    }
+    #b1 {
+        padding: 10px;
+        width: 250px;
+        bottom: 200px;
+        margin-bottom: 50px;
+        top: 500px;
+    }
+    #b2 {
+        padding: 10px;
+        width: 250px;
     }
 }
+
+@media only screen and (max-height: 512px) {
+    .logo {
+        right: 110px;
+    }
+    #b1 {
+        padding: 10px;
+        width: 220px;
+    }
+    #b2 {
+        padding: 10px;
+        width: 220px;
+    }
+  }
