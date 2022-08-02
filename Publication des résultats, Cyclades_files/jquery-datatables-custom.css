@@ -1,0 +1,73 @@
+ 
+table.dataTable {
+     border-collapse: collapse;
+     width: 100%;
+}
+
+table.dataTable th {
+     padding: 3px;
+     text-align: left;
+}
+
+table.dataTable thead th {
+    border: 1px solid #E0E0E0;
+}
+
+table.dataTable td {
+     padding: 3px;
+     vertical-align: top;
+     border: 1px solid #E0E0E0;
+}
+
+table.dataTable tr.odd {
+     background: none repeat scroll 0pt 0pt #E5E5E5;
+}
+
+
+table.dataTable tr.odd td.sorting_1 {
+    background-color: transparent;
+}
+
+table.dataTable tr.even td.sorting_1 {
+    background-color: transparent;
+}
+
+table.dataTable  .sorting {
+    background: url("../images/datatables/no_sort.png") no-repeat scroll right center transparent;
+}
+
+table.dataTable  .sorting_asc {
+    background: url("../images/datatables/sort_asc.png") no-repeat scroll right center transparent;
+}
+
+table.dataTable  .sorting_desc {
+    background: url("../images/datatables/sort_desc.png") no-repeat scroll right center transparent;
+}
+
+.dataTables_scrollBody thead th {
+    background: none repeat scroll 0 0 transparent !important;
+}
+
+table.dataTable tr.even.row_selected td, table tr.even.sorting_1.row_selected td {
+     background-color: #B0BED9 !important;
+}
+
+table.dataTable tr.odd.row_selected td, table tr.odd.sorting_1.row_selected td {
+     background-color: #9FAFD1 !important;
+}
+
+table.dataTable tr.row_selectable {
+     cursor: pointer;
+}
+
+caption
+{
+   caption-side:top;
+}
+
+.dataTables_wrapper
+{
+	/* pour ne pas avoir à faire un clear float après chaque datatable */
+	overflow:auto;
+	margin-bottom: 5px;
+}

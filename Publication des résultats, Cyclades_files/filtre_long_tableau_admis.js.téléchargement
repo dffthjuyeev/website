@@ -1,0 +1,115 @@
+$.urlParam = function(name) {
+	var results = new RegExp('[\?&amp;]' + name + '=([^&amp;#]*)')
+	.exec(window.location.href);
+	if (results == null) {
+		return "false";
+	}
+	return results[1];
+}
+//param pour desactiver le mode simulation 
+var urlDoc = $.url(window.location.href);
+$(function() {
+
+	$.ajaxSetup({
+		cache : false
+	});
+	$('#cycladesDatatableFilter').keyup(function(e) {
+		if (e.keyCode == 13) {
+			$('#rechercher_button').click();
+		}
+	});
+
+	$('#rechercher_button')
+	.click(
+			function() {
+				$
+				.ajax(
+						{
+							url : "publication",
+							type : 'GET', // Le type de la requête HTTP.
+							dataType : 'json',
+							data : {
+								filtre : $(
+										'#cycladesDatatableFilter')
+										.val(),
+								contexte : urlDoc
+										.param('contexte')
+							}
+						})
+						.done(
+								function(data) {
+									var list = data.results;
+									var error = data.error;
+									if (error != null) {
+										$('#userinfo tbody tr')
+										.remove();
+										$('#userinfo')
+										.append(
+												'<tr class="odd"><td valign="top" colspan="3" style="text-align:center;">'
+												+ error
+												+ '</td></tr>');
+									} else {
+										var isOdd = true;
+										$('#userinfo tbody tr')
+										.remove();
+
+										if (list.length == 0) {
+											$('#userinfo')
+											.append(
+											'<tr class="odd"><td valign="top" colspan="3" style="text-align:center;">Aucune donnée trouvée</td></tr>');
+										}
+										var prop1ToTri = 'nom';
+										var prop2ToTri = 'prenoms';
+										list = list
+										.sort(function(
+												a, b) {
+											if (a[prop1ToTri] == b[prop1ToTri]) {
+												return (a[prop2ToTri]
+												.toUpperCase() > b[prop2ToTri]
+												.toUpperCase()) ? 1
+														: ((a[prop2ToTri]
+														.toUpperCase() < b[prop2ToTri]
+														.toUpperCase()) ? -1
+																: 0);
+											}
+											return (a[prop1ToTri] > b[prop1ToTri]) ? 1
+													: ((a[prop1ToTri] < b[prop1ToTri]) ? -1
+															: 0);
+										});
+									}
+									
+									$
+									.each(
+											list,
+											function() { // rows
+												var resultatDisplay = this.homonyme ? '<td title ="Attention, il existe des homonymes pour ce nom et prénom">'
+														                          + this.nom
+																					.toUpperCase() + '*</td>' : '<td>'	+ this.nom.toUpperCase()	+ '</td>';
+												
+												var classesTr = isOdd ? "odd"
+														: "even";
+												var row = '<tr class="' + classesTr + '">'
+												+ resultatDisplay
+												+ '<td>'
+												+ this.prenoms
+												.toUpperCase()
+												+ '</td><td>'
+												+ this.resultat
+												+ '</td>';
+												if ($("libelleQP")) {
+													var serie = this.libelleQP ? this.libelleQP : "";
+													row += '<td>' + serie + '</td>';
+												}
+												row += '</tr>';
+												$(
+												'#userinfo')
+												.append(
+														row);
+												//on alterne les classes.
+												isOdd = isOdd ? false
+														: true;
+											});
+								});
+			});
+
+});
